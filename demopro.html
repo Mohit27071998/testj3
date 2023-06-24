@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+    <style>
+        body {
+            background-color: black;
+            color: white !important;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .info {
+            color: white;
+            font-size: 40px;
+           
+        }
+        p {
+            font-size: 20px;
+            margin: 10px 10px;
+        }
+        .right a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            margin: 10px 10px;
+        }
+        .main {
+            margin-left: auto;
+            margin-right: auto;
+            width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+       
+        #sign {
+            color: white;
+        }
+        #logout-btn {
+            margin: 15px 0px !important;
+            padding: 10px 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <p>header</p>
+        <div class="right">
+            <a href="" id="signup">Signup</a>
+            <a href="" id="profile">Profile</a>
+        </div>
+       
+    </header>
+    <div class="main">
+        <h1>Profile</h1>
+        <div class="info">
+            <div>Full Name : <span id="fname"></span></div>
+            <div>Email : <span id="inf-email"></span></div>
+            <div>Password: <span id="inf-pass"></span></div>
+        </div>
+        <button type="submit" id="logout-btn">Logout</button>
+    </div>
+
+    <script>
+        let name = document.getElementById("fname")
+        let email = document.getElementById("inf-email")
+        let password = document.getElementById("inf-pass")
+        let signup = document.getElementById("signup")
+        let profile = document.getElementById("profile")
+        let logout = document.getElementById("logout-btn")
+
+
+        let info = JSON.parse(localStorage.getItem('info'));
+        console.log(info);
+        if(info.token) {
+           name.innerText = info.name;
+            email.innerText = info.email;
+            password.innerText = info.password;
+            profile.href = "http://127.0.0.1:5500/demopro.html"
+        } 
+        else {
+         signup.href = "http://127.0.0.1:5500/demo.html"
+        }
+         
+        logout.addEventListener('click',()=>{
+          localStorage.removeItem("info")
+          navigateToProfile()
+          
+        })
+        
+        function navigateToProfile(){
+    // window.location.pathname
+  let path = '/demopro.html';
+
+ // video_id: video_id
+    let linkItem = document.createElement("a");
+    linkItem.href = "http://127.0.0.1:5500/demo.html"
+    linkItem.target = "_blank" ;
+    linkItem.click();
+  }
+
+    </script>
+</body>
+</html>

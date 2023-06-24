@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        p {
+            font-size: 20px;
+            margin: 10px 10px;
+        }
+
+        .right a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            margin: 10px 10px;
+        }
+
+        .fbody {
+            margin-left: auto;
+            margin-right: auto;
+            width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+
+            background-color: inherit;
+            border: none;
+            border-bottom: 1px solid white;
+            margin: 10px 0px;
+            padding: 10px;
+            width: 700px;
+            color: white;
+        }
+
+        input:focus {
+            color: white;
+        }
+
+        #sign {
+            color: white;
+        }
+
+        #submit-btn {
+            margin: 10px;
+            padding: 10px 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <p>header</p>
+        <div class="right">
+            <a href="">Signup</a>
+            <a href="" target="_blank">Profile</a>
+        </div>
+
+    </header>
+    <div class="fbody">
+        <h1 id="sign">SignUp</h1>
+        <form action="">
+            <input type="text" placeholder="Full name" id="name" required><br>
+            <input type="email" placeholder="Email" id="mail" required><br>
+            <input type="password" name="" id="pass" placeholder="Password" required><br>
+            <input type="password" name="" id="repass" placeholder="Confirm Password" required><br>
+            <div id="note"></div>
+            <button type="submit" id="submit-btn">SignUp</button>
+
+        </form>
+    </div>
+    <script>
+        let signup = document.getElementById("submit-btn")
+        let note = document.getElementById("note")
+        let sign = document.getElementById("signup")
+        let profile = document.getElementById("profile")
+
+        signup.addEventListener('click', (event) => {
+            let fname = document.getElementById("name").value
+            let mail = document.getElementById("mail").value
+            let pass = document.getElementById("pass").value
+            let repass = document.getElementById("repass").value
+            if (fname === "" || mail === "" || pass === "" || repass === "") {
+                note.innerText = "Error : All the fields are mandatory"
+                note.style.color = "red"
+            }
+            else {
+                note.innerText = "Successfully Signed Up!"
+                note.style.color = "green"
+            }
+            let user = {
+                name: fname,
+                email: mail,
+                password: pass,
+                checkpass: repass,
+                token: generateAccessToken()
+            }
+            localStorage.setItem("info",JSON.stringify(user))
+            event.preventDefault()
+            navigateToProfile(user.token)
+        })
+        function generateAccessToken() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let accessToken = '';
+
+            for (let i = 0; i < 16; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                accessToken += characters.charAt(randomIndex);
+            }
+            return accessToken;
+        }
+// profile.addEventListener('click',()=>{
+//     let user = JSON.parse(localStorage.getItem('info'));
+//     if(user.token) {
+//     profile.href = "http://127.0.0.1:5500/f3con3/profile.html"
+//     }
+// })    
+function navigateToProfile(token){
+    // window.location.pathname
+  let path = '/demo.html';
+  if(token){
+ // video_id: video_id
+    let linkItem = document.createElement("a");
+    linkItem.href = "http://127.0.0.1:5500/demopro.html"
+    linkItem.target = "_blank" ;
+    linkItem.click();
+  }
+  else {
+    alert("error cant redirect")
+  }
+}
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- 
+
+console.log(info);
+        if(info.token) {
+            name.innerText = info.name;
+            email.innerText = info.email;
+            password.innerText = info.password;
+            profile.href = "http://127.0.0.1:5500/f3con3/profile.html"
+        }
+        else {
+         signup.href = "http://127.0.0.1:5500/f3con3/index.html"
+        } -->
